@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { sql, Post } from '@/lib/db';
 
 export const metadata: Metadata = {
-  title: 'Writing — tomwm',
+  title: 'Through Lines — tomwm',
 };
 
 export const dynamic = 'force-dynamic';
@@ -39,7 +39,8 @@ export default async function WritingPage() {
       <Nav />
       <main>
         <div className="page-header">
-          <h1>Writing</h1>
+          <h1>Through Lines</h1>
+          <p className="subtitle">My thoughts on Design, AI and how we design better services and organisations.</p>
         </div>
 
         {posts.length === 0 ? (
