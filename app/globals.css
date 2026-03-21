@@ -245,7 +245,8 @@ a:hover {
   font-size: 2rem;
 }
 
-.page-header .subtitle {
+.page-header .subtitle,
+.subtitle {
   font-family: "Georgia", serif;
   font-size: 1.05rem;
   color: var(--muted);

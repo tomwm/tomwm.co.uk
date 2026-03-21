@@ -14,7 +14,7 @@ export default function AboutPage() {
           <h1>About Me</h1>
         </div>
 
-        <p>
+        <p className="subtitle">
           I work on complex problems where technology, organisations, and public services intersect.
         </p>
 
