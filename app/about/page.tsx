@@ -12,11 +12,10 @@ export default function AboutPage() {
       <main>
         <div className="page-header">
           <h1>About Me</h1>
+          <p className="subtitle">
+            I work on complex problems where technology, organisations, and public services intersect.
+          </p>
         </div>
-
-        <p className="subtitle">
-          I work on complex problems where technology, organisations, and public services intersect.
-        </p>
 
         <p>
           Most of time has been spent inside large institutions, particularly in the public sector, where change is rarely clean or linear and is never fully within anyone&rsquo;s control. I pay attention to how systems actually behave in practice: how decisions get made, how work really flows, and how services feel when they meet people&rsquo;s lives.
