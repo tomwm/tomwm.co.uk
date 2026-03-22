@@ -13,11 +13,24 @@ async function getPost(id: string): Promise<Post | null> {
   }
 }
 
+async function getExistingTags(): Promise<string[]> {
+  try {
+    const rows = await sql`SELECT tags FROM posts WHERE tags IS NOT NULL AND tags != ''`;
+    const set = new Set<string>();
+    (rows as { tags: string }[]).forEach((r) =>
+      r.tags.split(',').map((t) => t.trim()).filter(Boolean).forEach((t) => set.add(t))
+    );
+    return Array.from(set).sort();
+  } catch {
+    return [];
+  }
+}
+
 export default async function EditPostPage(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const post = await getPost(id);
+  const [post, existingTags] = await Promise.all([getPost(id), getExistingTags()]);
   if (!post) notFound();
 
   return (
@@ -42,6 +55,7 @@ export default async function EditPostPage(
         </div>
         <PostEditor
           postId={post.id}
+          existingTags={existingTags}
           initialPost={{
             title: post.title,
             subtitle: post.subtitle || '',

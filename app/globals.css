@@ -836,3 +836,90 @@ a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* ── Admin tag input ── */
+
+.tag-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tag-input-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 4px;
+  background: #fff;
+  cursor: text;
+}
+
+.tag-input-field:focus-within {
+  border-color: #999;
+  outline: none;
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.775rem;
+  background: #f0f0eb;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  color: #333;
+}
+
+.tag-chip-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #999;
+  padding: 0;
+  line-height: 1;
+}
+
+.tag-chip-remove:hover {
+  color: #333;
+}
+
+.tag-input-text {
+  flex: 1;
+  min-width: 80px;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background: transparent;
+  color: var(--admin-text);
+}
+
+.tag-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag-suggestion-btn {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.775rem;
+  color: #888;
+  background: none;
+  border: 1px dashed #ccc;
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tag-suggestion-btn:hover {
+  color: #333;
+  border-color: #999;
+}
