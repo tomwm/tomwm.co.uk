@@ -44,15 +44,19 @@ function getAllTags(posts: Post[]): string[] {
 export default async function WritingPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tag?: string }>;
+  searchParams: Promise<{ tag?: string | string[] }>;
 }) {
-  const { tag } = await searchParams;
+  const params = await searchParams;
+  const selected = params.tag
+    ? Array.isArray(params.tag) ? params.tag : [params.tag]
+    : [];
   const allPosts = await getPosts();
   const tags = getAllTags(allPosts);
-  const posts = tag
-    ? allPosts.filter((p) =>
-        p.tags?.split(',').map((t) => t.trim()).includes(tag)
-      )
+  const posts = selected.length > 0
+    ? allPosts.filter((p) => {
+        const postTags = p.tags?.split(',').map((t) => t.trim()) ?? [];
+        return selected.some((t) => postTags.includes(t));
+      })
     : allPosts;
 
   return (
@@ -70,7 +74,7 @@ export default async function WritingPage({
 
         {posts.length === 0 ? (
           <p style={{ color: 'var(--muted)', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif', fontSize: '0.9375rem' }}>
-            {tag ? `No posts tagged "${tag}".` : 'Nothing published yet.'}
+            {selected.length > 0 ? `No posts matching those tags.` : 'Nothing published yet.'}
           </p>
         ) : (
           <ul className="writing-list">

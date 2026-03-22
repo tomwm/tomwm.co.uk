@@ -829,3 +829,10 @@ a:hover {
   color: var(--text);
   border-color: var(--text);
 }
+
+.tag-filter-clear {
+  color: var(--muted);
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
