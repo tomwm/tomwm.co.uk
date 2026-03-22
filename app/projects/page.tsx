@@ -44,10 +44,6 @@ export default async function ProjectsPage() {
           <ul className="project-list">
             {projects.map((p) => (
               <li key={p.id} className="project-card">
-                {p.image_url && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={p.image_url} alt={p.title} className="project-image" />
-                )}
                 <div className="project-body">
                   <h2 className="project-title">
                     {p.url ? (
@@ -56,6 +52,10 @@ export default async function ProjectsPage() {
                   </h2>
                   {p.description && <p className="project-description">{p.description}</p>}
                 </div>
+                {p.image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={p.image_url} alt={p.title} className="project-image" />
+                )}
               </li>
             ))}
           </ul>
