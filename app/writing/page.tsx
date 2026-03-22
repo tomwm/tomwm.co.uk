@@ -40,7 +40,7 @@ export default async function WritingPage() {
       <main>
         <div className="page-header">
           <h1>Through Lines</h1>
-          <p className="subtitle">My thoughts on Design, AI and how we create better services and organisations.</p>
+          <p className="subtitle">Essays and thoughts on Design, AI and how we create better services and organisations.</p>
         </div>
 
         {posts.length === 0 ? (
