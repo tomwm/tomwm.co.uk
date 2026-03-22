@@ -34,6 +34,7 @@ export default async function ProjectsPage() {
       <main>
         <div className="page-header">
           <h1>Projects</h1>
+          <p className="subtitle">Experiments, prototypes and propositions to explore design and test ideas.</p>
         </div>
 
         {projects.length === 0 ? (
