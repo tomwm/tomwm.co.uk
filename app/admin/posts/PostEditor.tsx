@@ -14,6 +14,7 @@ interface Post {
   content: string;
   tags: string;
   status: string;
+  published_at?: string;
 }
 
 interface PostEditorProps {
@@ -108,6 +109,11 @@ export default function PostEditor({ initialPost, postId, existingTags = [] }: P
   const [slug, setSlug] = useState(initialPost?.slug || '');
   const [tags, setTags] = useState(initialPost?.tags || '');
   const [content, setContent] = useState(initialPost?.content || '');
+  const [publishedAt, setPublishedAt] = useState(
+    initialPost?.published_at
+      ? new Date(initialPost.published_at).toISOString().slice(0, 16)
+      : ''
+  );
   const [saving, setSaving] = useState(false);
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(!!initialPost?.slug);
 
@@ -130,7 +136,7 @@ export default function PostEditor({ initialPost, postId, existingTags = [] }: P
 
     setSaving(true);
     try {
-      const body = { title, subtitle, slug, content, tags, status };
+      const body = { title, subtitle, slug, content, tags, status, published_at: publishedAt || null };
       const url = postId ? `/api/posts/${postId}` : '/api/posts';
       const method = postId ? 'PUT' : 'POST';
       const res = await fetch(url, {
@@ -208,7 +214,7 @@ export default function PostEditor({ initialPost, postId, existingTags = [] }: P
           />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
           <div className="form-field">
             <label className="form-label" htmlFor="slug">Slug</label>
             <input
@@ -221,6 +227,17 @@ export default function PostEditor({ initialPost, postId, existingTags = [] }: P
                 setSlug(e.target.value);
                 setSlugManuallyEdited(true);
               }}
+            />
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="published_at">Published date</label>
+            <input
+              id="published_at"
+              type="datetime-local"
+              className="form-input"
+              value={publishedAt}
+              onChange={(e) => setPublishedAt(e.target.value)}
             />
           </div>
 

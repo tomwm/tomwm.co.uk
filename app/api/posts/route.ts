@@ -36,14 +36,16 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { title, subtitle, slug, content, tags, status } = body;
+    const { title, subtitle, slug, content, tags, status, published_at } = body;
 
     if (!title || !slug) {
       return NextResponse.json({ error: 'Title and slug are required' }, { status: 400 });
     }
 
     const now = new Date().toISOString();
-    const publishedAt = status === 'published' ? now : null;
+    const publishedAt = published_at
+      ? new Date(published_at).toISOString()
+      : status === 'published' ? now : null;
 
     const rows = await sql`
       INSERT INTO posts (title, subtitle, slug, content, tags, status, published_at, updated_at)

@@ -31,7 +31,7 @@ export async function PUT(
 
   try {
     const body = await request.json();
-    const { title, subtitle, slug, content, tags, status } = body;
+    const { title, subtitle, slug, content, tags, status, published_at } = body;
 
     if (!title || !slug) {
       return NextResponse.json({ error: 'Title and slug are required' }, { status: 400 });
@@ -43,13 +43,16 @@ export async function PUT(
     }
 
     const existingPost = existing[0] as unknown as { published_at: string | null; status: string };
-    let publishedAt = existingPost.published_at;
+    let publishedAt: string | null;
 
-    if (status === 'published' && !publishedAt) {
+    if (published_at) {
+      publishedAt = new Date(published_at).toISOString();
+    } else if (status === 'published' && !existingPost.published_at) {
       publishedAt = new Date().toISOString();
-    }
-    if (status === 'draft') {
+    } else if (status === 'draft') {
       publishedAt = null;
+    } else {
+      publishedAt = existingPost.published_at;
     }
 
     const now = new Date().toISOString();

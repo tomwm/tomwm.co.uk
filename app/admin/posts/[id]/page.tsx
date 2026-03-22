@@ -63,6 +63,7 @@ export default async function EditPostPage(
             content: post.content || '',
             tags: post.tags || '',
             status: post.status,
+            published_at: post.published_at || '',
           }}
         />
       </div>
