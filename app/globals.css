@@ -798,3 +798,34 @@ a:hover {
     padding: 1.5rem 1rem;
   }
 }
+
+/* ── Tag filter ── */
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.tag-filter-btn {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tag-filter-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.tag-filter-btn.active {
+  color: var(--text);
+  border-color: var(--text);
+}

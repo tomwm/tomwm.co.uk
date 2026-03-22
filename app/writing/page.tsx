@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Nav from '@/components/Nav';
 import Link from 'next/link';
 import { sql, Post } from '@/lib/db';
+import { Suspense } from 'react';
+import TagFilter from './TagFilter';
 
 export const metadata: Metadata = {
   title: 'Through Lines — tomwm',
@@ -31,8 +33,27 @@ async function getPosts(): Promise<Post[]> {
   }
 }
 
-export default async function WritingPage() {
-  const posts = await getPosts();
+function getAllTags(posts: Post[]): string[] {
+  const set = new Set<string>();
+  posts.forEach((p) => {
+    if (p.tags) p.tags.split(',').map((t) => t.trim()).filter(Boolean).forEach((t) => set.add(t));
+  });
+  return Array.from(set).sort();
+}
+
+export default async function WritingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tag?: string }>;
+}) {
+  const { tag } = await searchParams;
+  const allPosts = await getPosts();
+  const tags = getAllTags(allPosts);
+  const posts = tag
+    ? allPosts.filter((p) =>
+        p.tags?.split(',').map((t) => t.trim()).includes(tag)
+      )
+    : allPosts;
 
   return (
     <>
@@ -43,9 +64,13 @@ export default async function WritingPage() {
           <p className="subtitle">Essays and thoughts on Design, AI and how we create better services and organisations.</p>
         </div>
 
+        <Suspense>
+          <TagFilter tags={tags} />
+        </Suspense>
+
         {posts.length === 0 ? (
           <p style={{ color: 'var(--muted)', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif', fontSize: '0.9375rem' }}>
-            Nothing published yet.
+            {tag ? `No posts tagged "${tag}".` : 'Nothing published yet.'}
           </p>
         ) : (
           <ul className="writing-list">
@@ -60,8 +85,8 @@ export default async function WritingPage() {
                     <span>{formatDate(post.published_at || post.created_at)}</span>
                     {post.tags && post.tags.trim() && (
                       <div className="post-tags">
-                        {post.tags.split(',').map((tag) => tag.trim()).filter(Boolean).map((tag) => (
-                          <span key={tag} className="post-tag">{tag}</span>
+                        {post.tags.split(',').map((t) => t.trim()).filter(Boolean).map((t) => (
+                          <span key={t} className="post-tag">{t}</span>
                         ))}
                       </div>
                     )}
