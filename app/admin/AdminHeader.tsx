@@ -12,6 +12,8 @@ export default function AdminHeader() {
         </Link>
       </span>
       <nav className="admin-nav">
+        <Link href="/admin">Posts</Link>
+        <Link href="/admin/projects">Projects</Link>
         <Link href="/" target="_blank">View site</Link>
         <button
           onClick={() => signOut({ callbackUrl: '/admin/login' })}
