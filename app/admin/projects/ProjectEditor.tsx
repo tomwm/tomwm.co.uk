@@ -90,7 +90,7 @@ export default function ProjectEditor({
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px', gap: '1rem' }}>
         <div className="form-field">
           <label className="form-label" htmlFor="url">URL</label>
-          <input id="url" type="url" className="form-input" placeholder="https://…" value={url} onChange={(e) => setUrl(e.target.value)} />
+          <input id="url" type="text" className="form-input" placeholder="https://…" value={url} onChange={(e) => setUrl(e.target.value)} />
         </div>
         <div className="form-field">
           <label className="form-label" htmlFor="sort_order">Order</label>

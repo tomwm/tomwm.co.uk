@@ -48,7 +48,7 @@ export default async function ProjectsPage() {
                 <div className="project-body">
                   <h2 className="project-title">
                     {p.url ? (
-                      <a href={p.url} target="_blank" rel="noopener noreferrer">{p.title}</a>
+                      <a href={/^https?:\/\//.test(p.url) ? p.url : `https://${p.url}`} target="_blank" rel="noopener noreferrer">{p.title}</a>
                     ) : p.title}
                   </h2>
                   {p.description && <p className="project-description">{p.description}</p>}
